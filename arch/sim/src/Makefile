@@ -133,7 +133,7 @@ ifeq ($(CONFIG_RTC_DRIVER),y)
   CSRCS += sim_rtc.c
 endif
 
-ifeq ($(CONFIG_SIM_LCDDRIVER),y) 
+ifeq ($(CONFIG_SIM_LCDDRIVER),y)
   CSRCS += sim_lcd.c
 else ifeq ($(CONFIG_SIM_FRAMEBUFFER),y)
   CSRCS += sim_framebuffer.c
@@ -208,6 +208,7 @@ ifeq ($(CONFIG_SIM_SOUND_ALSA),y)
   CSRCS += sim_offload.c
   STDLIBS += -lasound
   STDLIBS += -lmad
+  STDLIBS += -lmp3lame
 endif
 
 ifeq ($(CONFIG_SIM_VIDEO_V4L2),y)
