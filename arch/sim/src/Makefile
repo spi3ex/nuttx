@@ -141,7 +141,11 @@ endif
 
 ifeq ($(CONFIG_SIM_X11FB),y)
   HOSTSRCS += sim_x11framebuffer.c
+ifeq ($(CONFIG_HOST_MACOS),y)
+  STDLIBS += -L/opt/X11/lib -lX11 -L/opt/X11/lib  -lXext
+else
   STDLIBS += -lX11 -lXext
+endif
 ifeq ($(CONFIG_SIM_TOUCHSCREEN),y)
   CSRCS += sim_touchscreen.c
   HOSTSRCS += sim_x11eventloop.c
