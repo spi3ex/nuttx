@@ -31,9 +31,9 @@ We need ``genromfs`` to build simulators(NON GUI).
 For GUI Applications we need X11 Libraries, libx11 can also be build using Homebrew.
 
    .. code-block:: console
-      $ sudo port install xorg
+   
       $ sudo port install xorg-libX11
-      $ sudo port install xorg-server
+      $ sudo port install sudo port install xorg-server-devel
 
 Compiling
 ---------
