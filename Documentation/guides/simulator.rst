@@ -18,24 +18,22 @@ submit a PR to improve this guide!
 Prerequisites For macOS
 -----------------------
 
-We need ``genromfs`` to build simulators(NON GUI)
-   
-.. code-block:: console
-   
-      $git clone https://github.com/chexum/genromfs.git
-      $cd genromfs
-      $make 
-      $make install
+   We need ``genromfs`` to build simulators(NON GUI).
+
+   .. code-block:: console
+
+      $ git clone https://github.com/chexum/genromfs.git
+      $ cd genromfs
+      $ make 
+      $ make install
+   Now Copy the built `genromfs` exec to /opt/local/bin
+
+   For GUI Applications we need X11 Libraries
+   libx11 can be build using Homebrew also
+
+   .. code-block:: console
       
-Now Copy the built `genromfs` exec to /opt/local/bin
-For GUI Applications we need X11 Libraries
-libx11 can be build using Homebrew also
-   
-.. code-block:: console
-   
-$sudo port install xorg-libX11
-      
-  
+      $ sudo port install xorg-libX11
 
 Compiling
 ---------
