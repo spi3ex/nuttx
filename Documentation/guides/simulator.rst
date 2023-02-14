@@ -13,7 +13,23 @@ having a piece of embedded hardware.
 This guide assumes you're on Linux. It works on Windows and Mac too— if you know how,
 submit a PR to improve this guide!
 
-.. todo:: Add Mac and Windows instructions
+.. todo:: Windows instructions
+
+Prerequisites For macOS
+-----------------------
+
+   We need ``genromfs`` to build simulators(NON GUI)
+   .. code-block:: console
+      $git clone https://github.com/chexum/genromfs.git
+      $cd genromfs
+      $make 
+      $make install
+   Now Copy the built `genromfs` exec to /opt/local/bin
+
+   For GUI Applications we need X11 Libraries
+   .. code-block:: console
+      $sudo port install xorg-libX11
+   libx11 can be build using Homebrew also
 
 Compiling
 ---------
