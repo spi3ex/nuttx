@@ -26,7 +26,7 @@ We need ``genromfs`` to build simulators(NON GUI).
       $ cd genromfs
       $ make 
       $ make install
-   Now Copy the built `genromfs` exec to /opt/local/bin
+   Now Copy the built `genromfs` `exec` to /opt/local/bin
 
 For GUI Applications we need X11 Libraries, libx11 can also be build using Homebrew.
 
