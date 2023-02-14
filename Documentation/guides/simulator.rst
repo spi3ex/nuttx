@@ -28,12 +28,12 @@ We need ``genromfs`` to build simulators(NON GUI).
       $ make install
    Now Copy the built `genromfs` `exec` to /opt/local/bin
 
-For GUI Applications we need X11 Libraries, libx11 can also be build using Homebrew.
+For GUI Applications we need X11 Libraries, libx11 can also be build using Homebrew or by Installing XQuartz.
 
    .. code-block:: console
    
       $ sudo port install xorg-libX11
-      $ sudo port install sudo port install xorg-server-devel
+      $ sudo port install sudo port install xorg-server
 
 Compiling
 ---------
