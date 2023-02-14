@@ -133,7 +133,7 @@ ifeq ($(CONFIG_RTC_DRIVER),y)
   CSRCS += sim_rtc.c
 endif
 
-ifeq ($(CONFIG_SIM_LCDDRIVER),y)
+ifeq ($(CONFIG_SIM_LCDDRIVER),y) 
   CSRCS += sim_lcd.c
 else ifeq ($(CONFIG_SIM_FRAMEBUFFER),y)
   CSRCS += sim_framebuffer.c
@@ -141,7 +141,11 @@ endif
 
 ifeq ($(CONFIG_SIM_X11FB),y)
   HOSTSRCS += sim_x11framebuffer.c
+ifeq ($(CONFIG_HOST_MACOS),y)
+  STDLIBS += -L/opt/X11/lib -lX11 -L/opt/X11/lib  -lXext
+else
   STDLIBS += -lX11 -lXext
+endif
 ifeq ($(CONFIG_SIM_TOUCHSCREEN),y)
   CSRCS += sim_touchscreen.c
   HOSTSRCS += sim_x11eventloop.c
@@ -204,7 +208,6 @@ ifeq ($(CONFIG_SIM_SOUND_ALSA),y)
   CSRCS += sim_offload.c
   STDLIBS += -lasound
   STDLIBS += -lmad
-  STDLIBS += -lmp3lame
 endif
 
 ifeq ($(CONFIG_SIM_VIDEO_V4L2),y)
