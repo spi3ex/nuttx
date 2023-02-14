@@ -15,11 +15,10 @@ submit a PR to improve this guide!
 
 .. todo:: Windows instructions
 
-
 Prerequisites For macOS
 -----------------------
 
-   We need ``genromfs`` to build simulators(NON GUI).
+We need ``genromfs`` to build simulators(NON GUI).
 
    .. code-block:: console
 
@@ -29,7 +28,7 @@ Prerequisites For macOS
       $ make install
    Now Copy the built `genromfs` exec to /opt/local/bin
 
-   For GUI Applications we need X11 Libraries,
+For GUI Applications we need X11 Libraries,
    libx11 can also be build using Homebrew.
 
    .. code-block:: console
