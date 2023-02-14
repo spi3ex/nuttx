@@ -33,6 +33,7 @@ For GUI Applications we need X11 Libraries, libx11 can also be build using Homeb
    .. code-block:: console
 
       $ sudo port install xorg-libX11
+      $ sudo port install xorg-server
 
 Compiling
 ---------
