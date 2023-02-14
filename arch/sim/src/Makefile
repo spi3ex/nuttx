@@ -133,7 +133,7 @@ ifeq ($(CONFIG_RTC_DRIVER),y)
   CSRCS += sim_rtc.c
 endif
 
-ifeq ($(CONFIG_SIM_LCDDRIVER),y) 
+ifeq ($(CONFIG_SIM_LCDDRIVER),y)
   CSRCS += sim_lcd.c
 else ifeq ($(CONFIG_SIM_FRAMEBUFFER),y)
   CSRCS += sim_framebuffer.c
