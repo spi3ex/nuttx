@@ -15,6 +15,7 @@ submit a PR to improve this guide!
 
 .. todo:: Windows instructions
 
+
 Prerequisites For macOS
 -----------------------
 
@@ -28,11 +29,11 @@ Prerequisites For macOS
       $ make install
    Now Copy the built `genromfs` exec to /opt/local/bin
 
-   For GUI Applications we need X11 Libraries
-   libx11 can be build using Homebrew also
+   For GUI Applications we need X11 Libraries,
+   libx11 can also be build using Homebrew.
 
    .. code-block:: console
-      
+
       $ sudo port install xorg-libX11
 
 Compiling
