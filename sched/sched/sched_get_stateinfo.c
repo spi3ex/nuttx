@@ -1,5 +1,5 @@
 /****************************************************************************
- * arch/ceva/src/xc5/xc5_psu.c
+ * sched/sched/sched_get_stateinfo.c
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -24,50 +24,72 @@
 
 #include <nuttx/config.h>
 
-#include <nuttx/irq.h>
-
-#include "ceva_internal.h"
-
-/****************************************************************************
- * Pre-processor Definitions
- ****************************************************************************/
-
-/* disable psu function temporarily */
-
-#define CONFIG_XC5_PSU_ENABLE
+#include <string.h>
+#include <stdio.h>
+#include <semaphore.h>
+#include <nuttx/mutex.h>
+#include "nuttx/sched.h"
 
 /****************************************************************************
- * Private Functions
+ * Pre-processor types
  ****************************************************************************/
 
-#if CONFIG_XC5_PSU_ENABLE
-static void up_cpu_pmod(uint32_t psvm)
-{
-  /* Core auto restore to DPS here after wakeup */
+/* This is the state info of the task_state field of the TCB */
 
-  __asm__ __volatile__
-  (
-    "mov #0x2,    mod2\n"
-    "mov #0x3f80, modp\n"      /* Enable the interrupt */
-    "mov %0,   r0\n"           /* Enter the low power mode */
-    "mov #0x250,  r1\n"
-    "out {dw,cpm} r0, (r1)\n"  /* output to cpm register psmv */
-    "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n"
-    "mov #0x0080, modp"        /* restore the interrupt */
-    : : "r"(psvm)
-  );
-}
-#else
-static void up_cpu_pmod(uint32_t psvm)
+static FAR const char * const g_statenames[] =
 {
-}
-#endif /* CONFIG_XC5_PSU_ENABLE */
+  "Invalid",
+  "Waiting,Unlock",
+  "Ready",
+#ifdef CONFIG_SMP
+  "Assigned",
+#endif
+  "Running",
+  "Inactive",
+  "Waiting,Semaphore",
+  "Waiting,Signal"
+#if !defined(CONFIG_DISABLE_MQUEUE) || !defined(CONFIG_DISABLE_MQUEUE_SYSV)
+  , "Waiting,MQ empty"
+  , "Waiting,MQ full"
+#endif
+#ifdef CONFIG_PAGING
+  , "Waiting,Paging fill"
+#endif
+#ifdef CONFIG_SIG_SIGSTOP_ACTION
+  , "Stopped"
+#endif
+};
 
 /****************************************************************************
  * Public Functions
  ****************************************************************************/
 
-void up_psu_lp(int value)
+/****************************************************************************
+ * Name: nxsched_get_stateinfo
+ *
+ * Description:
+ *   Report information about a thread's state
+ *
+ * Input Parameters:
+ *   tcb    - The TCB for the task (same as the nxtask_init argument).
+ *   state  - User-provided location to return the state information.
+ *   length - The size of the state
+ *
+ ****************************************************************************/
+
+void nxsched_get_stateinfo(FAR struct tcb_s *tcb, FAR char *state,
+                           size_t length)
 {
-  up_cpu_pmod(value);
+  /* if the state is waiting mutex */
+
+  if (tcb->task_state == TSTATE_WAIT_SEM &&
+      ((FAR sem_t *)(tcb->waitobj))->flags & SEM_TYPE_MUTEX)
+    {
+      snprintf(state, length, "Waiting,Mutex:%d",
+               ((FAR mutex_t *)(tcb->waitobj))->holder);
+    }
+  else
+    {
+      strlcpy(state, g_statenames[tcb->task_state], length);
+    }
 }
